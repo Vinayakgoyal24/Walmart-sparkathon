@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema(
+const brandSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -13,32 +13,17 @@ const productSchema = new mongoose.Schema(
       maxLength: 50,
       unique: true,
     },
-    price: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    discount_percent: {
-      type: Number,
-      default: 0,
-    },
-    discount_price: {
-      type: Number,
-      // default:0
-    },
     image: {
       type: String,
       // required:true,
       maxLength: 200,
     },
-    category_id: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Category",
-    },
-    brand_id: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Brand",
-    },
+    // category_id: [
+    //   {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Category",
+    //   },
+    // ],
     best_seller: {
       type: Boolean,
       default: false,
@@ -63,5 +48,5 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const Product = mongoose.model('Product',productSchema)
-module.exports = Product;
+const Brand = mongoose.model("Brand", brandSchema);
+module.exports = Brand;

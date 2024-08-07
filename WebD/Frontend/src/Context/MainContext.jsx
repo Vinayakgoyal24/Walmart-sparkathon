@@ -7,8 +7,8 @@ const context = createContext();
 
 export default function mainContext(props) 
 {
-  const[loader,setLoader] = useState(false)
-  //-------------------------------category url-----------------------------------
+  const [loader, setLoader] = useState(false);
+  //-------------------------------category -----------------------------------
   const [Category, setCategory] = useState([]);
   const [categoryImageUrl, setCategoryImageUrl] = useState([]);
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -18,16 +18,41 @@ export default function mainContext(props)
     await axios
       .get(`${API_BASE_URL}${CATEGORY_BASE_URL}`)
       .then((success) => {
-        // console.log("Fetch category success:", success.data);
+        console.log("Fetch category success:", success.data);
         if (success.data.status === 1) {
           setCategory(success.data.category);
-          setCategoryImageUrl(success.data.imageBaseUrl);
+          // setCategoryImageUrl(success.data.imageBaseUrl);
         } else {
           console.error("Error while fetching category");
         }
       })
       .catch((error) => {
         console.error("Error while fetching category", error.message);
+      });
+  };
+
+  //-------------------------------brand -----------------------------------
+  const [Brand, setBrand] = useState([]);
+  const [brandImageUrl, setBrandImageUrl] = useState([]);
+  // const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BRAND_BASE_URL = import.meta.env.VITE_BRAND_BASE_URL;
+  // console.log(BRAND_BASE_URL);
+
+  const fetchBrand = async () => {
+    await axios
+      .get(`${API_BASE_URL}${BRAND_BASE_URL}`)
+      .then((success) => {
+        console.log("Fetch brand success:", success.data);
+        if (success.data.status === 1) {
+          setBrand(success.data.data);
+          // console.log(Brand)
+          setBrandImageUrl(success.data.imageBaseUrl);
+        } else {
+          console.error("Error while fetching brand");
+        }
+      })
+      .catch((error) => {
+        console.error("Error while fetching brand", error.message);
       });
   };
 
@@ -56,7 +81,11 @@ export default function mainContext(props)
   const [productImageUrl, setProductImageUrl] = useState([]);
   const PRODUCT_BASE_URL = import.meta.env.VITE_PRODUCT_BASE_URL;
 
-  const fetchProduct = async (limit = 0,color_id=null,category_slug=0) => {
+  const fetchProduct = async (
+    limit = 0,
+    color_id = null,
+    category_slug = 0
+  ) => {
     const urlQuery = new URLSearchParams({ limit, color_id, category_slug });
     await axios
       .get(`${API_BASE_URL}${PRODUCT_BASE_URL}?${urlQuery.toString()}`)
@@ -72,25 +101,25 @@ export default function mainContext(props)
         console.error("Error while fetching Product", error.message);
       });
   };
-  
-    //-------------------------bestsetller prod---------------------------------
-    const[bestseller,setBestseller] = useState([]);
-    const[bestsellerImgURl,setBestsellerImgURl] = useState([])
-      const fetchBestSeller = async () => {
-        await axios 
-          .get(`${API_BASE_URL}${PRODUCT_BASE_URL}/best-seller/`)
-          .then((success) => {
-            if (success.data.status === 1) {
-              setBestseller(success.data.product);
-              setBestsellerImgURl(success.data.imageBaseUrl);
-            } else {
-              console.error("Error while fetching Product");
-            }
-          })
-          .catch((error) => {
-            console.error("Error while fetching Product", error.message);
-          });
-      };
+
+  //-------------------------bestsetller prod---------------------------------
+  const [bestseller, setBestseller] = useState([]);
+  const [bestsellerImgURl, setBestsellerImgURl] = useState([]);
+  const fetchBestSeller = async () => {
+    await axios
+      .get(`${API_BASE_URL}${PRODUCT_BASE_URL}/best-seller/`)
+      .then((success) => {
+        if (success.data.status === 1) {
+          setBestseller(success.data.product);
+          setBestsellerImgURl(success.data.imageBaseUrl);
+        } else {
+          console.error("Error while fetching Product");
+        }
+      })
+      .catch((error) => {
+        console.error("Error while fetching Product", error.message);
+      });
+  };
 
   const openToast = (msg, flag) => {
     toast(msg, {
@@ -123,6 +152,10 @@ export default function mainContext(props)
         bestseller,
         bestsellerImgURl,
         fetchBestSeller,
+        BRAND_BASE_URL,
+        Brand,
+        brandImageUrl,
+        fetchBrand,
       }}
     >
       <div

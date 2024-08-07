@@ -53,8 +53,8 @@ class productController {
     });
   }
   read(id ,query) {
-    return new Promise(async (resolve, reject) => {
-      
+    return new Promise(async (resolve, reject) => 
+      {
       try {
         const dbQuery = {};
         if(query.category_slug){
@@ -70,7 +70,7 @@ class productController {
             dbQuery.color = color._id;
           }
         }
-        console.log(dbQuery)
+        // console.log(dbQuery)
         let product = [];
         if (id) {
           product = await Product.findById(id).populate([

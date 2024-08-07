@@ -1,20 +1,34 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
-import axios from "axios"
+import axios from "axios";
 import { context } from "../../../Context/MainContext";
 import { FaTrash } from "react-icons/fa";
 import { MdEditNote } from "react-icons/md";
+import Select from "react-select";
+
 function View() {
   const [toggle, setToggle] = useState(false);
+  // const [brandCategory, setBrandCategory] = useState(null);
+
   const {
     openToast,
     fetchCategory,
     API_BASE_URL,
+    BRAND_BASE_URL,
     CATEGORY_BASE_URL,
-    Category,
-    categoryImageUrl,
+    // Category,
+    // categoryImageUrl,
+    Brand,
+    brandImageUrl,
+    fetchBrand,
   } = useContext(context);
+
+    useEffect(() => {
+      // fetchCategory();
+      fetchBrand();
+      // console.log(Brand)
+    }, []);
 
   const nameRef = useRef();
   const slugRef = useRef();
@@ -32,19 +46,22 @@ function View() {
     event.preventDefault();
     const name = event.target.name.value;
     const slug = event.target.slug.value;
+    // const slcategoryug = event.target.slug.value;
+
     const image = event.target.image.files[0];
 
-    if (name != "" && slug != "" && image != undefined) 
-    {
-      // as we have to submit a image also therefore using .post(`${API_BASE_URL + CATEGORY_BASE_URL}/create`, { name, slug }) and sending info as a JS object wont work thereyby we try submitting this as a form 
+    if (name != "" && slug != "" && image != undefined) {
+      // as we have to submit a image also therefore using .post(`${API_BASE_URL + CATEGORY_BASE_URL}/create`, { name, slug }) and sending info as a JS object wont work thereyby we try submitting this as a form
 
       const formData = new FormData();
       formData.append("name", name);
       formData.append("slug", slug);
       formData.append("image", image);
-
+      // formData.append("category", brandCategory);
+      // console.log(brandCategory);
+      // console.log({ BRAND_BASE_URL });
       axios
-        .post(API_BASE_URL + CATEGORY_BASE_URL+"/create", formData)
+        .post(API_BASE_URL + BRAND_BASE_URL + /create/ , formData)
         .then((success) => {
           if (success.data.status == 1) {
             event.target.reset();
@@ -59,7 +76,7 @@ function View() {
         });
     }
   };
-  const deleteData=(id)=>{
+  const deleteData = (id) => {
     axios
       .delete(API_BASE_URL + CATEGORY_BASE_URL + "/delete/" + id)
       .then((success) => {
@@ -75,34 +92,45 @@ function View() {
         openToast("Client Side Error", "Error");
         console.log(Error);
       });
-      
-      useEffect(() => {
-        fetchCategory();
-      }, []);
-  }
-  const changeStatus=(id,new_status)=>{
-    axios.put(API_BASE_URL +CATEGORY_BASE_URL+"/change-status/"+id+"/"+new_status)
-    .then(
-      (success) => {
+
+    useEffect(() => {
+      fetchCategory();
+    }, []);
+  };
+  const changeStatus = (id, new_status) => {
+    axios
+      .put(
+        API_BASE_URL +
+          CATEGORY_BASE_URL +
+          "/change-status/" +
+          id +
+          "/" +
+          new_status
+      )
+      .then((success) => {
         if (success.data.status) {
           openToast(success.data.msg, "Success");
           fetchCategory();
-
         } else {
           openToast(success.data.msg, "Error");
         }
-      }).catch(
-        (error) => {
-          openToast("Client Side Error", "Error");
-          console.log(error);
-        }
-      )
-  }
+      })
+      .catch((error) => {
+        openToast("Client Side Error", "Error");
+        console.log(error);
+      });
+  };
+    // const categoryOptions = Category.map((cat) => {
+    //   return {
+    //     label: cat.name,
+    //     value: cat._id,
+    //   };
+    // });
   return (
     <div className="bg-[#] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
       <div className="flex justify-between items-center mb-2 text-2xl">
         <h1 className=" font-extrabold p-2 rounded-md text-2xl md:text-5xl ">
-          Category Listing
+          Brands Listing
         </h1>
         <button
           onClick={() => {
@@ -132,15 +160,13 @@ function View() {
           overflow-hidden
           p-3
           border border-black dark:border-black" // Add the desired border
-        > 
+        >
           <div
             className="
             text-3xl font-semibold p-3
             flex justify-between items-center gap-3"
           >
-            <h1 className="font-extrabold border p-2 rounded-md ">
-              Add Category
-            </h1>
+            <h1 className="font-extrabold border p-2 rounded-md ">Add Brand</h1>
             <IoCloseSharp
               onClick={() => {
                 setToggle(false);
@@ -152,13 +178,13 @@ function View() {
             encType="multipart/form-data"
             className="p-3"
             onSubmit={formSubmitHandler}
-          > 
+          >
             <div className="mb-5 ">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                <h1 className="text-black text-xl">Category</h1>
+                <h1 className="text-black text-xl">Brand</h1>
               </label>
               <input
                 onChange={titleToSlug}
@@ -175,7 +201,7 @@ function View() {
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                <h1 className="text-black text-xl">Category slug</h1>
+                <h1 className="text-black text-xl">Brand slug</h1>
               </label>
               <input
                 readOnly
@@ -187,12 +213,29 @@ function View() {
                 required=""
               />
             </div>
+
+            {/* <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <h1 className="text-black text-xl">Category</h1>
+              </label>
+              <Select
+                className="basic-single dp bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#61677A] dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 z-20"
+                classNamePrefix="select"
+                isSearchable={true}
+                name="category"
+                options={categoryOptions}
+                isMulti={true}  
+                onChange={(option) => {
+                  setBrandCategory(option.value);
+                }}
+              />
+            </div> */}
             <div className="mb-5">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                <h1 className="text-black text-xl">Category Image</h1>
+                <h1 className="text-black text-xl">Brand Image</h1>
               </label>
               <input
                 type="file"
@@ -236,7 +279,8 @@ function View() {
             </tr>
           </thead>
           <tbody>
-            {Category.map((cat, index) => {
+            {/* {console.log({Brand})} */}
+            {Brand.map((cat, index) => {
               return (
                 <tr
                   key={cat._id}
@@ -257,7 +301,7 @@ function View() {
                   <td class="px-6 py-4">{cat.slug}</td>
                   <td class="py-2">
                     <img
-                      src={API_BASE_URL + categoryImageUrl + cat.image}
+                      src={API_BASE_URL + "/Images/Brand/" + cat.image}
                       alt=""
                       className="object-scale-down w-28"
                     />

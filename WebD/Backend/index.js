@@ -7,9 +7,10 @@ const productRouter = require('./Routers/Product');
 const userRouter = require('./Routers/user');
 const cartRouter = require('./Routers/cart');
 const orderRouter = require('./Routers/order');
+const stackRoutes = require("./Routers/stack");
 const AdminAuth = require('./middleware/adminAuth');
 const cookieParser = require("cookie-parser");
-
+const brandRouter = require('./Routers/Brand');
 
 const app = express();
 
@@ -27,10 +28,12 @@ app.use(express.static("Public"));
 
 app.use("/category",categoryRouter)
 app.use("/colors",colorRouter)
+app.use("/brand",brandRouter)
 app.use("/product",productRouter);
 app.use("/user", userRouter);
 app.use("/cart",cartRouter);
-app.use("/order",orderRouter)
+app.use("/order",orderRouter);
+app.use("/api/stacks", stackRoutes);
 
 app.get("/test" , 
     //req ke beech me admin auth middleware add kara
@@ -43,6 +46,8 @@ app.get("/test" ,
 mongoose
   .connect("mongodb://localhost:27017/", {
     dbName: "WalmartDataBase",
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true, 
   })
   .then((result) => {
     app.listen(5000, () => console.log("server listening on port 5000"));

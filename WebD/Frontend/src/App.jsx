@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AdminMain from "./Pages/Adminn/Main";
 import WebsiteMain from "./Pages/Website/Main";
@@ -6,34 +6,40 @@ import Home from "./Pages/Website/Home";
 
 import Dashboard from "./Pages/Adminn/Dashboard";
 
-import CategoryView from "./Pages/Adminn/Category/View"
+import CategoryView from "./Pages/Adminn/Category/View";
 
-import ProductsView from "./Pages/Adminn/Products/View"
-import ProductsAdd from "./Pages/Adminn/Products/Add"
-import ProductsEdit from "./Pages/Adminn/Products/Edit"
+import BrandView from "./Pages/Adminn/Brand/View";
+
+import ProductsView from "./Pages/Adminn/Products/View";
+import ProductsAdd from "./Pages/Adminn/Products/Add";
+import ProductsEdit from "./Pages/Adminn/Products/Edit";
 
 import ColorView from "./Pages/Adminn/Colors/View";
 import ColorAdd from "./Pages/Adminn/Colors/Add";
 import ColorEdit from "./Pages/Adminn/Colors/Edit";
 import Store from "./Pages/Website/Store";
-import { useDispatch } from "react-redux";
-import { lsToCart } from "./reducers/CartSlice";
 import Cart from "./Pages/Website/Cart";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import { lsLogin } from "./reducers/UserReducer";
 import Checkout from "./Pages/Website/Checkout";
 import MyOrder from "./Pages/Website/MyOrder";
 import OrderPlaced from "./Pages/OrderPlaced";
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+import QrScanner from "./Components/Website/QrScanner";
+
+import { useDispatch } from "react-redux";
+import { lsToCart } from "./reducers/CartSlice";
+import { lsLogin } from "./reducers/UserReducer";
+import StoreLayout from "./Pages/Website/StoreLayout";
 
 function App() {
-  //means req should be sent with cookies
-  // axios.defaults.withCredentials = true;
   const dispatcher = useDispatch();
+  const [scannedData, setScannedData] = useState("");
+
   useEffect(() => {
     dispatcher(lsToCart());
     dispatcher(lsLogin());
-  }, []);
+  }, [dispatcher]);
+
 
   const routes = createBrowserRouter([
     {
@@ -110,13 +116,23 @@ function App() {
           path: "colors/edit/:id",
           element: <ColorEdit />,
         },
+        {
+          path: "brand",
+          element: <BrandView />,
+        },
       ],
     },
-  ]);  
-  return (
-    <>
-      <RouterProvider router={routes} />
-    </>
-  );
+    {
+      path: "/qr-scanner",
+      element: <QrScanner />,
+    },
+    {
+      path: "/store-layout/:storeId",
+      element: <StoreLayout />,
+    },
+  ]);
+
+  return <RouterProvider router={routes} />;
 }
-export default App; 
+
+export default App;

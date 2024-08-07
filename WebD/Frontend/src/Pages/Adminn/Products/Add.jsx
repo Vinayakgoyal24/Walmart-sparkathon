@@ -80,6 +80,8 @@ function Add() {
     formData.append("image", file);
     formData.append("category", productCategory);
     formData.append("color", JSON.stringify(productColor));
+    // console.log(productCategory);
+    // console.log(color);
     axios
       .post(API_BASE_URL + PRODUCT_BASE_URL + "/create", formData)
       .then((success) => {

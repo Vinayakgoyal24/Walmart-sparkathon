@@ -106,6 +106,22 @@ function SideBar() {
             Category
           </li>
         </NavLink>
+
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#272829]" : "text-[#D8D9DA] hover:text-[#272829]"
+          }
+          to="/admin/brand"
+        >
+          <li
+            ref={(el) => (navLinkRefs.current[1] = el)}
+            className="flex items-center gap-1"
+          >
+            <MdCategory className="dp" />
+            Brands
+          </li>
+        </NavLink>
+
         <NavLink
           className={({ isActive }) =>
             isActive ? "text-[#272829]" : "text-[#D8D9DA] hover:text-[#272829]"

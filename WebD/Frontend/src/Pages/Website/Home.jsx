@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 import ProductBox2 from "../../Components/Website/ProductBox2";
 // import Slider from "../../Components/Website/Slider";
 import { context } from "../../Context/MainContext";
@@ -193,9 +193,18 @@ function Home() {
   // useEffect(() => {
   //   window.scrollTo(0, 0); // Scroll to the top when this component mounts
   // }, []);
-
+  const navigator = useNavigate();
+  const handleNavigate = () => {
+    navigator("/qr-scanner");
+  };
   return (
     <div className="w-full min-h-screen">
+      <button
+        onClick={handleNavigate}
+        className="bg-blue-500 text-white py-2 px-4 rounded mt-60"
+      >
+        Go to QR Scanner
+      </button>
       {/* <CdcBox /> */}
 
       {/* <div className="max-w-[1280px] mx-auto">
