@@ -1,14 +1,74 @@
-const express = require("express");
-const router = express.Router();
+const { Router } = require("express");
 const stackController = require("../Controllers/stack");
 
-// GET all stacks
-router.get("/", stackController.getAllStacks);
+const stackRouter = Router();
 
-// GET a specific stack by number
-router.get("/:stackNumber", stackController.getStackByNumber);
+stackRouter.get("/:id?", (req, res) => {
+  const result = new stackController().read(req.params.id);
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+stackRouter.post("/create", (req, res) => {
+  const result = new stackController().create(req.body);
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+stackRouter.delete("/delete/:id", (req, res) => {
+  const result = new stackController().delete(req.params.id);
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+stackRouter.post("/edit/:id", (req, res) => {
+  const { name, colorr } = req.body;
 
-// PUT update a specific stack by number
-router.put("/:stackNumber", stackController.updateStackByNumber);
-
-module.exports = router;
+  const result = new stackController().edit(req.params.id, { name, colorr });
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+stackRouter.put("/change-status/:id/:new_status", (req, res) => {
+  const result = new stackController().changeStatus(
+    req.params.id,
+    req.params.new_status
+  );
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+stackRouter.put("/change-status/:id/:new_status", (req, res) => {
+  const result = new stackController().changeStatus(
+    req.params.id,
+    req.params.new_status
+  );
+  result
+    .then((success) => {
+      res.send(success);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+module.exports = stackRouter;

@@ -9,7 +9,7 @@ const colorSchema = new mongoose.Schema({
     },
     code: {
         type: String,
-        required: true,
+        // required: true,
         // unique: true
     },
     status:{
@@ -19,5 +19,5 @@ const colorSchema = new mongoose.Schema({
 },{
     timestamps:true,
 })
-const Color = mongoose.model("Color",colorSchema);
-module.exports = Color;
+const Color = mongoose.model("Stacks",colorSchema);
+module.exports = Color; 

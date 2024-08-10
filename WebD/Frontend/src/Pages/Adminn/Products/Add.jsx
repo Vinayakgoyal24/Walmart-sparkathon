@@ -14,15 +14,26 @@ function Add() {
   const price_ref = useRef();
   const navigator = useNavigate();
 
-  const { fetchCategory, Category, fetchColor, Colors, PRODUCT_BASE_URL ,API_BASE_URL,openToast} =
-    useContext(context);
+  const {
+    Brand,
+    fetchCategory,
+    fetchProduct,
+    Category,
+    PRODUCT_BASE_URL,
+    API_BASE_URL,
+    fetchBrand,
+    openToast,
+    Colors,
+  } = useContext(context);
 
   const [productCategory, setproductCategory] = useState(null);
   const [productColor, setproductColor] = useState(null);
+  const [productStack, setproductStack] = useState(null);
 
     useEffect(() => {
-      fetchColor();
-      fetchColor();
+      fetchCategory();
+      fetchProduct();
+      fetchBrand();
     }, []);
 
   // ----------------------------------file drop-----------------------------------
@@ -40,7 +51,13 @@ function Add() {
     };
   });
 
-  const colorOptions = Colors.map((cat) => {
+  const brandOptions = Brand.map((cat) => {
+    return {
+      label: cat.name,
+      value: cat._id,
+    };
+  });
+  const stackOptions = Colors.map((cat) => {
     return {
       label: cat.name,
       value: cat._id,
@@ -61,6 +78,7 @@ function Add() {
   function calculateDiscount() {
     const price = price_ref.current.value;
     const discountPer = discount_pre_ref.current.value;
+    // console.log(discountPer)  
     if (price != "" && discountPer / 100) {
       const d = (discountPer / 100) * price;
       discount_price_ref.current.value = price-d;
@@ -79,7 +97,9 @@ function Add() {
     formData.append("discount_price", e.target.discount_price.value);
     formData.append("image", file);
     formData.append("category", productCategory);
-    formData.append("color", JSON.stringify(productColor));
+    // formData.append("color", JSON.stringify(productColor));
+    formData.append("brand", productColor);
+    formData.append("stack", productStack);
     // console.log(productCategory);
     // console.log(color);
     axios
@@ -99,7 +119,7 @@ function Add() {
   };
   //------------------------------------------------------------------------
   return (
-    <div className="bg-[#393d3f] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
+    <div className="bg-[#] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
       <h1 className=" font-extrabold p-2 rounded-md text-2xl md:text-5xl ">
         Products Listing
       </h1>
@@ -132,7 +152,7 @@ function Add() {
               htmlFor="name"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              <h1 className="text-black text-xl">Category slug</h1>
+              <h1 className="text-black text-xl">Product slug</h1>
             </label>
             <input
               readOnly
@@ -181,7 +201,7 @@ function Add() {
             </div>
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                <h1 className="text-black text-xl">Discount(₹)</h1>
+                <h1 className="text-black text-xl">Discounted Price(₹)</h1>
               </label>
               <input
                 readOnly
@@ -212,18 +232,37 @@ function Add() {
             </div>
             <div className="mb-5">
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                <h1 className="text-black text-xl">Color</h1>
+                <h1 className="text-black text-xl">Brand</h1>
               </label>
               <Select
                 className="basic-single dp bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#61677A] dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 z-20"
                 classNamePrefix="select"
                 isSearchable={true}
-                name="category"
-                isMulti={true}
-                options={colorOptions}
+                name="brand"
+                // isMulti={true}
+                options={brandOptions}
                 onChange={(option) => {
-                  const d = option.map((o) => o.value);
-                  setproductColor(d);
+                  // const d = option.map((o) => o.value);
+                  // setproductColor(d);
+                  setproductColor(option.value);
+                }}
+              />
+            </div>
+            <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <h1 className="text-black text-xl">Stack</h1>
+              </label>
+              <Select
+                className="basic-single dp bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-[#61677A] dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 z-20"
+                classNamePrefix="select"
+                isSearchable={true}
+                name="brand"
+                // isMulti={true}
+                options={stackOptions}
+                onChange={(option) => {
+                  // const d = option.map((o) => o.value);
+                  // setproductColor(d);
+                  setproductStack(option.value);
                 }}
               />
             </div>

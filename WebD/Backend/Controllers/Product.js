@@ -1,6 +1,7 @@
 const Product = require("../Models/Product");
 const Category = require("../Models/Category");
 const Color = require("../Models/Colors");
+const Brand = require("../Models/Brand");
 class productController {
   create(data, image) {
     return new Promise((resolve, reject) => {
@@ -20,11 +21,13 @@ class productController {
               name: data.name,
               slug: data.slug,
               price: data.price,
-              discount_percentage: data.discount_percentage,
+              discount_percent: data.discount_percent,
               discount_price: data.discount_price,
               image: imageName,
               category_id: data.category,
-              color: JSON.parse(data.color),
+              brand_id: data.brand,
+              stack_id:data.stack,
+              // color: JSON.parse(data.color),
             });
             product
               .save()
@@ -52,40 +55,70 @@ class productController {
       }
     });
   }
-  read(id ,query) {
-    return new Promise(async (resolve, reject) => 
-      {
+  read(id, query) {
+    return new Promise(async (resolve, reject) => {
       try {
+        // console.log(query.category_slug);
         const dbQuery = {};
-        if(query.category_slug){
-          const category = await Category.findOne({slug:query.category_slug});
-          if(category!= null){
+        if (query.category_slug) {
+          const category = await Category.findOne({
+            slug: query.category_slug,
+          });
+          if (category != null) {
             dbQuery.category_id = category._id;
           }
         }
-        if(query.color_id != "null"){
-          const color = await Color.findById(query.color_id);
-          if(color != null)
-          {
-            dbQuery.color = color._id;
+        if (query.brand_slug) {
+          const brand = await Brand.findOne({
+            slug: query.brand_slug,
+          });
+          if (brand != null) {
+            dbQuery.brand_id = brand._id;
           }
         }
+        // if (query.color_id) {
+        //   const color = await Color.findOne({
+        //     // dbQuery.color = color._id;
+        //   });
+        //   if (brand != null) {
+        //     dbQuery.brand_id = brand._id;
+        //   }
+        // }
+        // if (query.brand_slug) {
+        //   const brand = await Category.findOne({
+        //     slug: query.brand_slug,
+        //   });
+        //   if (brand != null) {
+        //     dbQuery.brand_id = brand._id;
+        //   }
+        // }
+
+        // if(query.color_id != "null"){
+        //   const color = await Color.findById(query.color_id);
+        //   if(color != null)
+        //   {
+        //     dbQuery.color = color._id;
+        //   }
+        // }
         // console.log(dbQuery)
         let product = [];
         if (id) {
           product = await Product.findById(id).populate([
             "category_id",
-            "color",
+            "brand_id",
+            // "stack_id",
+            // "color",
           ]);
-
         } else {
-          if(query.limit != 0 )
-          {
-            product = await Product.find(dbQuery).populate(["category_id", "color"]).limit(query.limit);
-          }
-          else
-          {
-            product = await Product.find(dbQuery).populate(["category_id", "color"]);
+          if (query.limit != 0) {
+            product = await Product.find(dbQuery)
+              .populate(["category_id", "brand_id"])
+              .limit(query.limit);
+          } else {
+            product = await Product.find(dbQuery).populate([
+              "category_id",
+              "brand_id",
+            ]);
           }
         }
         resolve({
@@ -209,7 +242,7 @@ class productController {
             "color",
           ]);
         } else {
-          product = await Product.find({ best_seller :true}).populate([
+          product = await Product.find({ best_seller: true }).populate([
             "category_id",
             "color",
           ]);

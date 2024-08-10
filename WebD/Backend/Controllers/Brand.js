@@ -29,7 +29,7 @@ create (data, image) {
   return new Promise((resolve, reject) => {
     // Generate a unique image name
     const imageName = new Date().getTime() + "_" + Math.floor(Math.random() * 1000) + "_" + image.name;
-    const destination = "./Public/Images/Product/" + imageName;
+    const destination = "./Public/Images/Brand/" + imageName;
 
     // Move the image to the destination
     image.mv(destination, (err) => {

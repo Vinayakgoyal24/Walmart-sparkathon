@@ -10,15 +10,19 @@ function View()
   const {
     fetchProduct,
     products,
-    productImageUrl = "",
     API_BASE_URL,
     PRODUCT_BASE_URL,
     openToast,
-    fetchCategory,
+    fetchColor,
   } = useContext(context);
+
+
+
   useEffect(() => {
     fetchProduct();
+    // fetchColor();
   }, []);
+
   //---------------------------------------delete----------------------------------------------
   const deleteData = (id) => {
     axios
@@ -111,10 +115,13 @@ function View()
                 Category
               </th>
               <th scope="col" class="px-6 py-3">
-                Colors
+                Brand
               </th>
               <th scope="col" class="px-6 py-3">
-                Image
+                Stack 
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Product Image
               </th>
               <th scope="col" class="px-6 py-3">
                 Status
@@ -148,14 +155,14 @@ function View()
                         ₹ {prod.price}
                       </h1>
                       <h1 className="mt-3 ml-2 text-xl">
-                        ₹ {prod.price - prod.discount_price}
+                        ₹ {prod.discount_price}
                       </h1>
                     </div>
                     {/* {prod.} */}
                   </th>
                   <td class="px-6 py-4">{prod.slug}</td>
                   <td class="px-6 py-4">{prod.category_id.name}</td>
-                  <td class="px-6 py-6 grid grid-cols-2 ">
+                  {/* <td class="px-6 py-6 grid grid-cols-2 ">
                     {prod.color.map((c, i) => {
                       return (
                         <td
@@ -164,23 +171,25 @@ function View()
                         ></td>
                       );
                     })}
-                  </td>
+                  </td> */}
+                  <td class="px-6 py-4">{prod.brand_id.name}</td>
+                  <td class="px-6 py-4">{prod.stack_id.name}</td>
 
                   <td class="py-2">
                     {/* {prod.image} */}
                     <img
-                      src={API_BASE_URL + productImageUrl + prod.image}
+                      src={API_BASE_URL + "/Images/Product/" + prod.image}
                       alt=""
                       className="object-scale-down w-28"
                     />
                   </td>
-                  <td class="px-6 py-4">
+                  <td class="px-6 py-4 ">
                     {prod.status == true ? (
                       <button
                         onClick={() => {
                           changeStatus(prod._id, false);
                         }}
-                        className="dp bg-[#93B65A] p-1 text-black rounded-xl"
+                        className="dp bg-[#93B65A] p-1 text-black rounded-xl mr-4"
                       >
                         Active
                       </button>
@@ -197,7 +206,7 @@ function View()
                     {prod.best_seller == true ? (
                       <button
                         onClick={() => {
-                          changeBestSeller(prod._id,false);
+                          changeBestSeller(prod._id, false);
                         }}
                         className="dp mt-3 bg-[#ebe575] p-1 text-black rounded-xl"
                       >
@@ -206,10 +215,9 @@ function View()
                     ) : (
                       <button
                         onClick={() => {
-                          console.log(prod.best_seller)
+                          console.log(prod.best_seller);
                           changeBestSeller(prod._id, true);
                           console.log(prod.best_seller);
-
                         }}
                         className="dp p-1 mt-3 opacity-65 text-black rounded-xl bg-gray-400"
                       >
@@ -235,6 +243,7 @@ function View()
               );
             })}
           </tbody>
+          
         </table>
       </div>
     </div>

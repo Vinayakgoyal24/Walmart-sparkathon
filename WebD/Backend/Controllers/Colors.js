@@ -30,7 +30,7 @@ class colorController {
       try {
         const colora = new Color({
           name: data.name,
-          code: data.colorr,
+          // code: data.colorr,
         });
         colora
           .save()

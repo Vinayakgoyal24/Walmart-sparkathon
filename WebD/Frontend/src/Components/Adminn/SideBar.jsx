@@ -140,14 +140,14 @@ function SideBar() {
           className={({ isActive }) =>
             isActive ? "text-[#272829]" : "text-[#D8D9DA] hover:text-[#272829]"
           }
-          to="/admin/colors"
+          to="/admin/stacks"
         >
           <li
             ref={(el) => (navLinkRefs.current[3] = el)}
             className="flex items-center gap-1"
           >
             <MdInvertColors className="dp" />
-            Colors
+            Stacks
           </li>
         </NavLink>
       </ul>

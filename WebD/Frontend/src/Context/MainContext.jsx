@@ -18,7 +18,7 @@ export default function mainContext(props)
     await axios
       .get(`${API_BASE_URL}${CATEGORY_BASE_URL}`)
       .then((success) => {
-        console.log("Fetch category success:", success.data);
+        // console.log("Fetch category success:", success.data);
         if (success.data.status === 1) {
           setCategory(success.data.category);
           // setCategoryImageUrl(success.data.imageBaseUrl);
@@ -42,7 +42,7 @@ export default function mainContext(props)
     await axios
       .get(`${API_BASE_URL}${BRAND_BASE_URL}`)
       .then((success) => {
-        console.log("Fetch brand success:", success.data);
+        // console.log("Fetch brand success:", success.data);
         if (success.data.status === 1) {
           setBrand(success.data.data);
           // console.log(Brand)
@@ -67,6 +67,7 @@ export default function mainContext(props)
         // console.log("Fetch color success:", success.data);
         if (success.data.status === 1) {
           setColors(success.data.data);
+          // fetchColor();
         } else {
           console.error("Error while fetching Color");
         }
@@ -83,10 +84,10 @@ export default function mainContext(props)
 
   const fetchProduct = async (
     limit = 0,
-    color_id = null,
+    brand_slug = 0,
     category_slug = 0
   ) => {
-    const urlQuery = new URLSearchParams({ limit, color_id, category_slug });
+    const urlQuery = new URLSearchParams({ limit, brand_slug, category_slug });
     await axios
       .get(`${API_BASE_URL}${PRODUCT_BASE_URL}?${urlQuery.toString()}`)
       .then((success) => {
@@ -124,6 +125,7 @@ export default function mainContext(props)
   const openToast = (msg, flag) => {
     toast(msg, {
       type: flag,
+      position: "bottom-left",
     });
   };
 

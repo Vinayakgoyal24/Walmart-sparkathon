@@ -105,15 +105,15 @@ function App() {
           element: <ProductsEdit />,
         },
         {
-          path: "colors",
+          path: "stacks",
           element: <ColorView />,
         },
         {
-          path: "colors/add/",
+          path: "stacks/add/",
           element: <ColorAdd />,
         },
         {
-          path: "colors/edit/:id",
+          path: "stacks/edit/:id",
           element: <ColorEdit />,
         },
         {

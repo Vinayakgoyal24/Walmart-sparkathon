@@ -257,7 +257,7 @@ function View() {
                   <td class="px-6 py-4">{cat.slug}</td>
                   <td class="py-2">
                     <img
-                      src={API_BASE_URL + categoryImageUrl + cat.image}
+                      src={API_BASE_URL + "/Images/Category/" + cat.image}
                       alt=""
                       className="object-scale-down w-28"
                     />

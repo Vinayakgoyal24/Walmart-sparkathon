@@ -56,9 +56,9 @@ function View() {
     <div className="bg-[#] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
       <div className="flex justify-between items-center mb-2 text-2xl">
         <h1 className="font-extrabold p-2 rounded-md text-2xl md:text-5xl">
-          Color Listing
+          Stacks Listing
         </h1>
-        <NavLink to={"/admin/colors/add"}>
+        <NavLink to={"/admin/stacks/add"}>
           <button className="dp hover:rotate-180 ml-auto flex items-center gap-1 bg-[#93B65A] rounded-3xl px-4 py-2">
             <IoMdAddCircleOutline />
           </button>
@@ -80,14 +80,9 @@ function View() {
                 scope="col"
                 className="px-6 py-3 sticky top-0 bg-gray-50 dark:bg-gray-700"
               >
-                Name
+                Stack Name
               </th>
-              <th
-                scope="col"
-                className="px-6 py-3 sticky top-0 bg-gray-50 dark:bg-gray-700"
-              >
-                Color
-              </th>
+
               <th
                 scope="col"
                 className="px-6 py-3 sticky top-0 bg-gray-50 dark:bg-gray-700"
@@ -121,10 +116,7 @@ function View() {
                   >
                     {cat.name}
                   </th>
-                  <td
-                    className="dp block px-4 py-4 rounded-full h-2 w-2 border-2 border-black"
-                    style={{ backgroundColor: cat.code }}
-                  ></td>
+
                   <td className="px-6 py-4">
                     {cat.status == true ? (
                       <button
