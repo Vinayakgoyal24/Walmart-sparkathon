@@ -3,9 +3,11 @@ import numpy as np
 import mediapipe as mp
 import os
 import time
+import csv
 
 prototxt_path = r"D:\Walmart-sparkathon\Walmart Camera\deploy.prototxt"
 model_path = r"D:/Walmart-sparkathon/Walmart Camera/res10_300x300_ssd_iter_140000.caffemodel"
+csv_path = r"D:\Walmart-sparkathon\Walmart Camera\seople_count.csv"
 
 if not os.path.isfile(prototxt_path) or not os.path.isfile(model_path):
     print("Model files not found. Please download 'deploy.prototxt' and 'res10_300x300_ssd_iter_140000_fp16.caffemodel'.")
@@ -32,6 +34,9 @@ start_time = time.time()
 max_people_left = 0
 max_people_right = 0
 
+# Initialize a flag to track if the CSV has been written to
+csv_initialized = False
+
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -57,7 +62,6 @@ while True:
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (x1, y1, x2, y2) = box.astype('int')
             
- 
             person_region = frame[y1:y2, x1:x2]
             person_rgb = cv2.cvtColor(person_region, cv2.COLOR_BGR2RGB)
             results = pose.process(person_rgb)
@@ -90,13 +94,30 @@ while True:
     cv2.putText(frame, f"Max people (R) in 1 min: {max_people_right}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     cv2.imshow('Multi-Pose Detection', frame)
     
-
     if cv2.waitKey(10) & 0xFF == ord('q'):
         break
 
-    if time.time() - start_time >= 60:
+    if time.time() - start_time >= 5:
+        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
         print(f"Max people detected in the last 1 minute (Left): {max_people_left}")
         print(f"Max people detected in the last 1 minute (Right): {max_people_right}")
+
+        # Read the existing data from the CSV file if not initialized
+        if not csv_initialized:
+            if os.path.exists(csv_path):
+                with open(csv_path, mode='r') as csv_file:
+                    csv_reader = csv.reader(csv_file)
+                    csv_data = list(csv_reader)
+            else:
+                csv_data = [['Timestamp', 'Max People Left', 'Max People Right']]
+            csv_initialized = True
+        else:
+            csv_data[-1] = [timestamp, max_people_left, max_people_right]
+
+        # Write data back to CSV file
+        with open(csv_path, mode='w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerows(csv_data)
 
         start_time = time.time()
         max_people_left = 0
