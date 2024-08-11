@@ -4,8 +4,8 @@ import mediapipe as mp
 import os
 import time
 
-prototxt_path = r'C:\Users\satya\Desktop\Projects\Walmart Camera\deploy.prototxt'
-model_path = r'C:\Users\satya\Desktop\Projects\Walmart Camera\res10_300x300_ssd_iter_140000.caffemodel'
+prototxt_path = r"D:\Walmart-sparkathon\Walmart Camera\deploy.prototxt"
+model_path = r"D:/Walmart-sparkathon/Walmart Camera/res10_300x300_ssd_iter_140000.caffemodel"
 
 if not os.path.isfile(prototxt_path) or not os.path.isfile(model_path):
     print("Model files not found. Please download 'deploy.prototxt' and 'res10_300x300_ssd_iter_140000_fp16.caffemodel'.")
