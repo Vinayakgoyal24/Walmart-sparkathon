@@ -10,21 +10,26 @@ from sklearn.metrics import accuracy_score, classification_report
 import os
 import warnings
 import matplotlib.pyplot as plt
+import seaborn as sns
+from datetime import datetime
 
 df=pd.read_csv(r"C:/Users/vishe/OneDrive/Desktop/Walmart/product_data.csv")
+# Load the data
+df = pd.read_csv(r"D:/Walmart-sparkathon/product_data.csv")
 
+# Shuffle 'Discount' and 'Price' columns
 df['Discount'] = np.random.permutation(df['Discount'])
 df['Price'] = np.random.permutation(df['Price'])
 
-data = df[df['ProductID']==1006].iloc[:,[3,4,8]]
+# Extract data for a specific product
+data = df[df['ProductID'] == 1006].iloc[:, [3, 4, 8]]
 
+# Standardize the data
 scaler = StandardScaler()
-columns=data.columns
+columns = data.columns
 data = scaler.fit_transform(data)
-
-data = pd.DataFrame(data,columns=columns)
-
-odata=data.copy()
+data = pd.DataFrame(data, columns=columns)
+odata = data.copy()
 
 # Set environment variable to limit CPU usage
 os.environ['LOKY_MAX_CPU_COUNT'] = '4'
@@ -90,21 +95,25 @@ shap_values = explainer(X)
 shap_values_df = pd.DataFrame(shap_values.values, columns=X.columns)
 X_with_shap = X.copy()
 X_with_shap[['Price_SHAP', 'Discount_SHAP']] = shap_values_df
-X=X_with_shap
+X = X_with_shap
 
-df=X
+df = X
 df['Price_SHAP_abs'] = df['Price_SHAP'].abs()
 df['Discount_SHAP_abs'] = df['Discount_SHAP'].abs()
 
-# Initialize the StandardScaler
+# Standardize SHAP values
 scaler = StandardScaler()
-
-# Fit and transform the data
-df[['Price_SHAP_abs','Discount_SHAP_abs']] = scaler.fit_transform(df[['Price_SHAP_abs', 'Discount_SHAP_abs']])
+df[['Price_SHAP_abs', 'Discount_SHAP_abs']] = scaler.fit_transform(df[['Price_SHAP_abs', 'Discount_SHAP_abs']])
 df['Price_SHAP_abs'] = df['Price_SHAP_abs'].abs()
 df['Discount_SHAP_abs'] = df['Discount_SHAP_abs'].abs()
+
+# Assign categories based on SHAP values
 df['Category'] = df.apply(lambda row: 'Price' if row['Price_SHAP_abs'] > row['Discount_SHAP_abs'] else 'Discount', axis=1)
 
+# Get the current date
+current_date = datetime.now().strftime('%Y%m%d')
+
+# Plot the frequency of categories
 plt.figure(figsize=(8, 6))
 df['Category'].value_counts().plot(kind='bar', color='skyblue')
 plt.title('Frequency of Categories')
@@ -112,19 +121,18 @@ plt.xlabel('Category')
 plt.ylabel('Frequency')
 plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-plt.show()
-plt.savefig("Frequency map")
+frequency_plot_filename = f"{current_date}_1006_frequency.png"
+plt.savefig(frequency_plot_filename)  # Save the plot with the date and product ID
+plt.show()  # Display the plot
 
 # Calculate and print frequencies
 frequency = df['Category'].value_counts()
 print(frequency)
 
-import seaborn as sns
+# Plot the correlation matrix heatmap
 correlation_matrix = odata.corr()
-import matplotlib.pyplot as plt
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
 plt.title('Correlation Matrix Heatmap')
-plt.show()
-plt.savefig('Correlation_matrix')
-
-
+correlation_plot_filename = f"{current_date}_1006_correlation.png"
+plt.savefig(correlation_plot_filename)  # Save the plot with the date and product ID
+plt.show()  # Display the plot
