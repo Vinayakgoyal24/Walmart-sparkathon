@@ -66,6 +66,14 @@ function App() {
           path: "/my-orders",
           element: <MyOrder />,
         },
+        {
+          path: "/qr-scanner",
+          element: <QrScanner />,
+        },
+        {
+          path: "/store-layout/:storeId",
+          element: <StoreLayout />,
+        },
       ],
     },
     {
@@ -121,14 +129,6 @@ function App() {
           element: <BrandView />,
         },
       ],
-    },
-    {
-      path: "/qr-scanner",
-      element: <QrScanner />,
-    },
-    {
-      path: "/store-layout/:storeId",
-      element: <StoreLayout />,
     },
   ]);
 

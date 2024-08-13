@@ -11,7 +11,7 @@ import { GiEgyptianProfile } from "react-icons/gi";
 import { emptyCart } from "../../reducers/CartSlice";
 
 function Header() {
-  const [scrollDirection, setScrollDirection] = useState("up");
+  const [scrollDirection, setScrollDirection] = useState("down");
   const [toggle, setToggle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuItemsRef = useRef([]);

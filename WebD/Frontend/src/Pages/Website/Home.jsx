@@ -199,13 +199,25 @@ function Home() {
   };
   return (
     <div className="w-full min-h-screen">
-      <button
+      <img
+        src="/images/landing.png"
+        alt=""
+        className="w-full h-[130vh] mt-24"
+      />
+      {/* <button
         onClick={handleNavigate}
-        className="bg-blue-500 text-white py-2 px-4 rounded mt-60"
+        className="w-full min-h-48 bg-blue-500 text-white py-2 px-4 rounded hover:bg-[#002D58] flex justify-between items-center"
       >
-        Go to QR Scanner
+        <span className="text-left flex-1 text-gray-200 text-xl font-bold">
+          Need Store Assistance?
+        </span>
+        <span className="flex-1 text-gray-200 text-9xl font-bold text-right">
+          Use Walmart Store Assistance
+        </span>
+      </button> */}
+      <button onClick={handleNavigate} className="">
+        <CdcBox />
       </button>
-      {/* <CdcBox /> */}
 
       {/* <div className="max-w-[1280px] mx-auto">
         <div>

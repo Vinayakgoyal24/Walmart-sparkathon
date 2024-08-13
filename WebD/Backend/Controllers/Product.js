@@ -2,6 +2,7 @@ const Product = require("../Models/Product");
 const Category = require("../Models/Category");
 const Color = require("../Models/Colors");
 const Brand = require("../Models/Brand");
+
 class productController {
   create(data, image) {
     return new Promise((resolve, reject) => {
@@ -56,9 +57,9 @@ class productController {
     });
   }
   read(id, query) {
+    // console.log(query)
     return new Promise(async (resolve, reject) => {
       try {
-        // console.log(query.category_slug);
         const dbQuery = {};
         if (query.category_slug) {
           const category = await Category.findOne({
@@ -76,48 +77,33 @@ class productController {
             dbQuery.brand_id = brand._id;
           }
         }
-        // if (query.color_id) {
-        //   const color = await Color.findOne({
-        //     // dbQuery.color = color._id;
-        //   });
-        //   if (brand != null) {
-        //     dbQuery.brand_id = brand._id;
-        //   }
-        // }
-        // if (query.brand_slug) {
-        //   const brand = await Category.findOne({
-        //     slug: query.brand_slug,
-        //   });
-        //   if (brand != null) {
-        //     dbQuery.brand_id = brand._id;
-        //   }
-        // }
-
-        // if(query.color_id != "null"){
-        //   const color = await Color.findById(query.color_id);
-        //   if(color != null)
-        //   {
-        //     dbQuery.color = color._id;
-        //   }
-        // }
-        // console.log(dbQuery)
+        if (query.stack_id) {
+          const stack = await Color.findOne({
+            stack_id: query.stack_id,
+          });
+          if (stack != null) {
+            dbQuery.stack_id = stack._id;
+          }
+        }
         let product = [];
-        if (id) {
+
+        if (id ) {
           product = await Product.findById(id).populate([
             "category_id",
             "brand_id",
-            // "stack_id",
+            "stack_id",
             // "color",
           ]);
         } else {
           if (query.limit != 0) {
             product = await Product.find(dbQuery)
-              .populate(["category_id", "brand_id"])
+              .populate(["category_id", "brand_id","stack_id"])
               .limit(query.limit);
-          } else {
+          } else  {
             product = await Product.find(dbQuery).populate([
               "category_id",
               "brand_id",
+              "stack_id",
             ]);
           }
         }

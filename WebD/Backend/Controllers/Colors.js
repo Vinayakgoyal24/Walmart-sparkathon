@@ -36,14 +36,14 @@ class colorController {
           .save()
           .then(() => {
             resolve({
-              msg: "Color added successfully",
+              msg: "Stack added successfully",
               status: 1,
               data: colora,
             });
           })
           .catch((err) => {
             reject({
-              msg: "Error adding color",
+              msg: "Error adding stack",
               status: 0,
               error: err.message,
             });

@@ -41,7 +41,7 @@
       },
       stack_id: {
         type: mongoose.Schema.ObjectId,
-        ref: "stack",
+        ref: "Color",
       },
       best_seller: {
         type: Boolean,

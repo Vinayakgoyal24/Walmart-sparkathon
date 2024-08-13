@@ -11,7 +11,7 @@ import os
 import warnings
 import matplotlib.pyplot as plt
 
-df=pd.read_csv(r"D:/walmart'/product_data.csv")
+df=pd.read_csv(r"C:/Users/vishe/OneDrive/Desktop/Walmart/product_data.csv")
 
 df['Discount'] = np.random.permutation(df['Discount'])
 df['Price'] = np.random.permutation(df['Price'])

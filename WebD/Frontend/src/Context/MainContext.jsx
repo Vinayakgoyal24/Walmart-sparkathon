@@ -85,9 +85,15 @@ export default function mainContext(props)
   const fetchProduct = async (
     limit = 0,
     brand_slug = 0,
-    category_slug = 0
+    category_slug = 0,
+    stack_id = 0,
   ) => {
-    const urlQuery = new URLSearchParams({ limit, brand_slug, category_slug });
+    const urlQuery = new URLSearchParams({
+      limit,
+      brand_slug,
+      category_slug,
+      stack_id ,
+    });
     await axios
       .get(`${API_BASE_URL}${PRODUCT_BASE_URL}?${urlQuery.toString()}`)
       .then((success) => {
@@ -128,7 +134,35 @@ export default function mainContext(props)
       position: "bottom-left",
     });
   };
+//-----------------------fetching frequency----------------------------------------
+const [frequency,setFrequency] = useState([]);
+const fetchFrequency = async () => {
+  // await axios
+  //  .get(`${API_BASE_URL}/freq`)
+  //  .then((success) => {
+  //     if (success.data.status === 1) {
+  //       console.log(success.data.status);
+  //       setFrequency(success.data.data);
+  //     } else {
+  //       console.error("Error while fetching frequency");
+  //     }
+  //   })
+  //  .catch((error) => {
+  //     console.error("Error while fetching frequency", error.message);
+  //   });
+    try {
+      const response = await axios.get(`${API_BASE_URL}/freq`);
 
+      // Directly set the frequency data if the response is successful
+      if (response.status === 200) {
+        setFrequency(response.data);
+      } else {
+        console.error("Unexpected response code:", response.status);
+      }
+    } catch (error) {
+      console.error("Error while fetching frequency:", error.message);
+    }
+}
   useEffect(() => {
     fetchCategory();
     fetchColor();
@@ -158,6 +192,8 @@ export default function mainContext(props)
         Brand,
         brandImageUrl,
         fetchBrand,
+        frequency,
+        fetchFrequency,
       }}
     >
       <div

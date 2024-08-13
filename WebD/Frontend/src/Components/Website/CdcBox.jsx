@@ -17,7 +17,7 @@ const AnimatedWordsAndImages = () => {
       scrollTrigger: {
         trigger: ".animation-container",
         start: "top 70%",
-        end: "bottom 40%",
+        end: "bottom 50%",
         scrub: true,
         // markers: true, 
       },
@@ -52,28 +52,27 @@ const AnimatedWordsAndImages = () => {
 
   return (
     <div
-      className="mb-10 animation-container relative w-full h-[400px] bg-[#393d3f] flex flex-wrap items-center justify-center gap-7 px-4 md:px-8 rounded-b-3xl"
+      className="mb-10 animation-container relative w-full h-[350px] bg-blue-500 hover:bg-[#002D58] flex flex-wrap items-center justify-center gap-7 px-4 md:px-8 rounded-b-3xl"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
       <h1
         ref={crepRef}
-        className=" text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none"
+        className=" text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none text-white"
       >
-        CREP
+        Use
       </h1>
       <h1
         ref={dogRef}
-        className="text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none"
+        className="text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none text-white"
       >
-        DOG
+        Walmart's
       </h1>
       <h1
         ref={crewRef}
-        className="text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none"
+        className="text-8xl md:text-9xl lg:text-[10rem] font-extrabold tracking-tighter leading-none text-[#FEBB0C]"
       >
-        CREW
+        storeAssist ?
       </h1>
-
     </div>
   );
 };
