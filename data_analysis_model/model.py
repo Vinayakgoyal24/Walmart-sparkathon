@@ -13,7 +13,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 
-df=pd.read_csv(r"C:/Users/vishe/OneDrive/Desktop/Walmart/product_data.csv")
 # Load the data
 df = pd.read_csv(r"D:/Walmart-sparkathon/product_data.csv")
 
