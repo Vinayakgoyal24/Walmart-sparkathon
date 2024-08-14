@@ -4,21 +4,14 @@
 
 This repository contains the code and resources for the **Walmart Mall UX Optimization and Sales Enhancement Portal**, a project aimed at improving the user experience (UX) of Walmart malls and boosting sales through advanced analytics, computer vision, and machine learning techniques.
 
-### Key Features:
-- **Heatmap Generation:** Real-time monitoring of customer traffic using strategically placed cameras and advanced computer vision algorithms.
-- **Product Management Portal:** A centralized system for Walmart executives to list products with details such as name, price, discount, and stack location.
-- **Customer Navigation:** A user-friendly interface for customers to navigate the mall, access product details, and view traffic heatmaps by scanning a QR code.
-- **Advanced Analytics Platform:** Tools for Walmart executives to analyze discrepancies between customer visits and purchases using machine learning models like XGBoost, agglomerative clustering, and future integration of LSTM models.
-
 ## Table of Contents
 
 1. [Project Description](#project-description)
-2. [Tech Stack](#tech-stack)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Features](#features)
-6. [Future Work](#future-work)
-7. [Contributors](#Contributors)
+2. [System Flow](#system-flow)
+3. [Tech Stack](#tech-stack)
+4. [Features](#features)
+5. [Usage](#usage)
+6. [Contributors](#contributors)
 
 ## Project Description
 
@@ -28,60 +21,52 @@ Walmart faces challenges in optimizing the UX of their malls and improving sales
 - Enabling customers to navigate the store more efficiently, improving their overall shopping experience.
 - Using machine learning models to analyze factors influencing the conversion of store visits into actual purchases.
 
+## System Flow
+
+![Blank diagram (1)](https://github.com/user-attachments/assets/59baf8b4-3010-46f8-96cd-bb506e071158)
+
+
 ## Tech Stack
 
 The project leverages the following technologies:
 
 ### Backend:
 - **Python**: Core programming language for developing machine learning models and handling backend logic.
-- **Flask/Django**: (Choose one based on your implementation) For web framework to build the backend RESTful APIs.
+- **Flask**: (Choose one based on your implementation) For web framework to build the backend RESTful APIs.
 
 ### Machine Learning:
 - **XGBoost**: For analyzing factors like pricing, discounts, and product placement duration.
 - **Agglomerative Clustering**: For grouping similar customer behaviors and product interactions.
-- **LSTM (Future Integration)**: For accounting temporal dependencies in customer behavior analysis.
+- **LSTM**: For accounting temporal dependencies in customer behavior analysis.
 
 ### Computer Vision:
 - **OpenCV**: For real-time traffic monitoring and heatmap generation through camera feeds.
 - **YOLO/SSD**: (Optional) For advanced object detection if implemented in the vision system.
 
 ### Frontend:
-- **HTML/CSS/JavaScript**: For creating a responsive and intuitive user interface.
-- **React.js/Angular.js**: (Choose one based on your implementation) For building dynamic components on the customer and executive portals.
+- **Tailwind**
+- **React.js**
+- **GSAP**
+- **ScrollTrigger**
 
 ### Data Storage:
-- **SQL/NoSQL Database**: (Specify based on your implementation) For storing product details, customer interaction data, and analysis results.
+- **MongoDB**: (Specify based on your implementation) For storing product details, customer interaction data, and analysis results.
 
-### Cloud Services:
-- **AWS/GCP/Azure**: (Specify based on your deployment choice) For scalable data processing and storage.
+## Features:
+- **Heatmap Generation:** Real-time monitoring of customer traffic using strategically placed cameras and advanced computer vision algorithms.
+- **Product Management Portal:** A centralized system for Walmart executives to list products with details such as name, price, discount, and stack location.
+- **Customer Navigation:** A user-friendly interface for customers to navigate the mall, access product details, and view traffic heatmaps by scanning a QR code.
+- **Advanced Analytics Platform:** Tools for Walmart executives to analyze discrepancies between customer visits and purchases using machine learning models like XGBoost, agglomerative clustering, and future integration of LSTM models.
 
 ## Usage:
 ### Walmart Executives:
 - Access the portal to manage product listings, view real-time heatmaps, and analyze product performance.
 - Use the advanced analytics platform to gain insights into factors affecting sales conversions.
-###Customers:
+### Customers:
 - Scan the QR code at the mall entrance to access the store layout, view traffic heatmaps, and find product details.
 
-## Features:
-- Real-Time Heatmaps: Monitor customer traffic and adjust store layouts dynamically.
-- Product Analysis: Use machine learning models to understand why certain products attract visitors but don't convert into sales.
-- Navigation Assistance: Help customers navigate the mall efficiently and access product information on the go.
 
-## Future-Work:
-- LSTM Integration: Incorporate LSTM models to analyze temporal dependencies in customer behavior.
-- Enhanced Analytics: Expand the analytical capabilities to include more factors influencing customer decisions.
-- User Personalization: Develop features that offer personalized shopping experiences based on past behavior.
-
-## Installation
-
-### Prerequisites:
-- Python 3.x
-- Node.js and npm (for frontend)
-- Database setup (MySQL/PostgreSQL/MongoDB)
-- Cloud services account (for deployment)
-
-### Steps:
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/walmart-ux-optimization.git
-   cd walmart-ux-optimization
+## Contributors:
+- **Vishesh Pandey**-[Github Profile](https://github.com/vishheshh)
+- **Vinayak Goyal**-[Github Profile](https://github.com/Vinayakgoyal24)
+- **Satyam Sahoo**-[Github Profile](https://github.com/satyamsahooPH25)
