@@ -52,7 +52,7 @@ const AnimatedWordsAndImages = () => {
 
   return (
     <div
-      className="mb-10 animation-container relative w-full h-[350px] bg-blue-500 hover:bg-[#002D58] flex flex-wrap items-center justify-center gap-7 px-4 md:px-8 rounded-b-3xl"
+      className="dp mb-10 animation-container relative w-full h-[350px] bg-blue-500 hover:bg-[#002D58] flex flex-wrap items-center justify-center gap-7 px-4 md:px-8 rounded-b-3xl"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
       <h1

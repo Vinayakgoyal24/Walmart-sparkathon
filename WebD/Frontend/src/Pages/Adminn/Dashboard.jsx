@@ -48,11 +48,11 @@ function Dashboard() {
   return (
     <div className="bg-[#f9f9f9] w-full min-h-screen overflow-auto rounded-3xl p-5 md:m-2">
       <div className="flex justify-between items-center mb-2 text-2xl">
-        <h1 className="font-extrabold p-2 rounded-md text-2xl md:text-5xl">
+        <h1 className="bg-[#FEBB0C] rounded-3xl font-extrabold px-4 py-2 text-2xl md:text-5xl dp mb-2">
           Dashboard
         </h1>
       </div>
-      <hr className="border border-black mb-4" />
+      {/* <hr className="border border-black mb-4" /> */}
       <div className="mb-4">
         <label
           htmlFor="date-picker"
@@ -74,7 +74,7 @@ function Dashboard() {
           <div
             key={product.id}
             onClick={() => handleProductClick(product)}
-            className="border border-gray-300 rounded-3xl p-4 flex flex-col items-center bg-slate-200 w-[350px] h-[350px] cursor-pointer"
+            className="border border-gray-300 rounded-3xl p-4 flex flex-col items-center bg-blue-50 hover:bg-blue-100  w-[300px] h-[350px] cursor-pointer dp overflow-auto"
           >
             <img
               src={API_BASE_URL + "/Images/Product/" + product.image}
@@ -86,7 +86,7 @@ function Dashboard() {
             </h2>
             <h2 className="text-lg font-semibold text-gray-600">
               Category: {product.category_id.name}
-            </h2>
+            </h2>     
             <h2 className="text-lg font-semibold text-gray-600">
               Brand: {product.brand_id.name}
             </h2>
@@ -97,9 +97,8 @@ function Dashboard() {
         ))}
       </div>
 
-      {/* Inline Modal */}
       {isModalOpen && selectedProduct && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 dp">
           <div className="bg-white rounded-lg w-1/2 h-2/3 p-4 relative">
             <button
               onClick={handleCloseModal}
@@ -107,7 +106,29 @@ function Dashboard() {
             >
               &times;
             </button>
-            <div className="flex flex-col items-center h-full"></div>
+            <div className="flex flex-col items-center h-full overflow-auto">
+              <div className="bg-blue-500 px-4 py-2 rounded-3xl dp">
+                <h1 className="text-3xl font-black text-[#FEBB0C]">
+                  Product Data Analytics
+                </h1>
+              </div>
+              <img
+                src={
+                  API_BASE_URL +
+                  "/Images/graphs/ImageData20240813_1006_correlation.png"
+                }
+                className=""
+                alt="Correlation"
+              />
+              <img
+                src={
+                  API_BASE_URL +
+                  "/Images/graphs/ImageData20240813_1006_frequency.png"
+                }
+                className=""
+                alt="Frequency"
+              />
+            </div>
           </div>
         </div>
       )}

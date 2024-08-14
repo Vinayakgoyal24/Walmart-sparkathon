@@ -87,16 +87,18 @@ function View()
   return (
     <div className="bg-[#] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
       <div className="flex justify-between items-center mb-2 text-2xl">
-        <h1 className=" font-extrabold p-2 rounded-md text-2xl md:text-5xl ">
-          Product Listing
-        </h1>
+        <div className="flex justify-between items-center mb-2 text-2xl">
+          <h1 className="bg-[#FEBB0C] rounded-3xl font-extrabold px-4 py-2 text-2xl md:text-5xl dp mb-2">
+            Products
+          </h1>
+        </div>
         <NavLink to={"/admin/product/add"}>
           <button className="dp hover:rotate-180 ml-auto flex items-center gap-1 bg-[#93B65A] rounded-3xl px-4 py-2">
             <IoMdAddCircleOutline />
           </button>
         </NavLink>
       </div>
-      <hr className="border border-black mb-4" />
+      {/* <hr className="border border-black mb-4" /> */}
 
       <div class="overflow-auto max-h-[750px] rounded-3xl">
         <table class="w-full csm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -118,7 +120,7 @@ function View()
                 Brand
               </th>
               <th scope="col" class="px-6 py-3">
-                Stack 
+                Stack
               </th>
               <th scope="col" class="px-6 py-3">
                 Product Image
@@ -243,7 +245,6 @@ function View()
               );
             })}
           </tbody>
-          
         </table>
       </div>
     </div>

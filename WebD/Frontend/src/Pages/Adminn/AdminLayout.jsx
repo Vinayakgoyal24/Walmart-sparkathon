@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { context } from "../../Context/MainContext";
 import GradientBar from "../../Components/Website/GradientBar";
 import { CiSearch } from "react-icons/ci";
-const StoreLayout = () => {
+
+const AdminLayout = () => {
   const {
     Colors: stacks,
     fetchColor,
@@ -57,12 +58,10 @@ const StoreLayout = () => {
 
       // Default color gradient logic
       let color;
-      if (ppm == 2) {
-        color = "rgba(255, 210, 127, 1)"; 
+      if (ppm == 1) {
+        color = "rgba(255, 210, 127, 1)"; // Black for ppm = 1
       } else if (ppm == 0) {
-        color = "rgba(255, 243, 230, 1)";
-      } else if (ppm == 1) {
-        color = "rgba(255, 220, 170, 1)";
+        color = "rgba(255, 243, 230, 1)"; // Red for ppm = 2
       } else if (ppm <= 10) {
         color = `rgba(255, 223, 186, ${ppm / 10})`; // Very light orange gradient for lower ppm values
       } else if (ppm <= 20) {
@@ -108,7 +107,7 @@ const StoreLayout = () => {
   };
 
   return (
-    <div className="w-full h-screen mt-28 mb-4 p-2 relative">
+    <div className="w-full h-screen mb-4 ml-4 mr-4 relative overflow-hidden">
       {/* Search Bar */}
       <div className="mb-4 w-full relative ">
         <div className="w-1/2 flex border border-[#0071DC] rounded-3xl p-2 mx-auto mt-4">
@@ -122,7 +121,7 @@ const StoreLayout = () => {
           />
         </div>
         {isDropdownOpen && filteredSuggestions.length > 0 && (
-          <div className="max-h-[700px] rounded-xl absolute left-1/2 transform -translate-x-1/2 w-1/2 mt-1 bg-white border border-gray-300 rounded-b-xl shadow-lg z-10 overflow-auto">
+          <div className="rounded-xl absolute left-1/2 transform -translate-x-1/2 w-1/2 mt-1 bg-white border border-gray-300 rounded-b-xl shadow-lg z-10">
             {filteredSuggestions.map((prod) => (
               <div
                 key={prod._id}
@@ -134,13 +133,11 @@ const StoreLayout = () => {
                     <img
                       src={`${API_BASE_URL}/Images/Product/${prod.image}`}
                       alt=""
-                      className="object-scale-down h-[50px] w-auto ml-3"
+                      className="object-scale-down h-[50px] ml-3"
                     />
                   </div>
                   <div className="mr-10">{prod.name}</div>
-                  <div className="bg-[#FCBC0C] px-3 rounded-full">
-                    Stack: {prod.stack_id.name}
-                  </div>
+                  <div className="bg-[#FCBC0C] px-3 rounded-full">Stack: {prod.stack_id.name}</div>
                 </div>
               </div>
             ))}
@@ -148,7 +145,7 @@ const StoreLayout = () => {
         )}
       </div>
       <GradientBar />
-      <div className="w-full h-10 bg-gray-400 rounded-t-xl">
+      <div className="w-full h-10 bg-gray-400 rounded-t-lg">
         <div className="w-8 h-full mx-auto text-center ">ENTRANCE</div>
       </div>
       <div className="h-full mx-auto bg-slate-300 p-4  shadow-lg overflow-auto">
@@ -274,9 +271,7 @@ const StoreLayout = () => {
       {isProductMenuOpen && filteredProducts.length > 0 && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-200 border p-4 rounded-3xl shadow-2xl w-11/12 lg:w-1/2 h-2/3 overflow-auto">
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl font-bold bg-[#FEBB0C] px-2 py-2 rounded-3xl dp">
-              Products in Selected Stack
-            </h3>
+            <h3 className="text-lg font-bold">Products in Selected Stack</h3>
             <button
               className="text-[#FEBB0C] text-4xl font-bold rounded-full p-1 hover:bg-[#002D58] hover:rotate-90"
               onClick={closeProductMenu}
@@ -332,13 +327,7 @@ const StoreLayout = () => {
                         </div>
                       </th>
                       <td className="px-6 py-4">{prod.category_id.name}</td>
-                      <td className="py-2">
-                        <img
-                          src={`${API_BASE_URL}/Images/Brand/${prod.brand_id.image}`}
-                          alt=""
-                          className="object-scale-down w-20 ml-3"
-                        />
-                      </td>
+                      <td className="px-6 py-4">{prod.brand_id.name}</td>
                     </tr>
                   );
                 })}
@@ -350,5 +339,4 @@ const StoreLayout = () => {
     </div>
   );
 };
-
-export default StoreLayout;
+export default AdminLayout;

@@ -7,6 +7,8 @@ import {
 import { FaClipboardList } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import gsap from "gsap";
+import { BsLayoutWtf } from "react-icons/bs";
+import { GiStack } from "react-icons/gi";
 
 function SideBar() {
   const sidebarRef = useRef(null);
@@ -64,7 +66,7 @@ function SideBar() {
   return (
     <div
       ref={sidebarRef}
-      className="hidden bg-[#0071dc] w-1/4 min-h-100 md:flex flex-col rounded-xl"
+      className="hidden bg-[#0071dc] w-1/4 min-h-100 md:flex flex-col rounded-r-3xl"
     >
       <div className="h-[10vh] mt-10 rounded-xl flex justify-center">
         <img
@@ -146,8 +148,26 @@ function SideBar() {
             ref={(el) => (navLinkRefs.current[3] = el)}
             className="flex items-center gap-1"
           >
-            <MdInvertColors className="dp" />
+            <GiStack className="dp" />
             Stacks
+          </li>
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-[#272829]" : "text-[#D8D9DA] hover:text-[#272829]"
+          }
+          to="/admin/layout"
+        >
+          <li
+            ref={(el) => (navLinkRefs.current[3] = el)}
+            className="flex items-center gap-1 -mt-3"
+          >
+            <img
+              src="\images\heatmap.png"
+              alt=""
+              className="w-14 filter grayscale -ml-4 -mr-4"
+            />
+            HeatMap
           </li>
         </NavLink>
       </ul>

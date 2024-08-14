@@ -129,9 +129,11 @@ function View() {
   return (
     <div className="bg-[#] w-full min-h-screen overflow-hidden rounded-3xl p-5 md:m-2">
       <div className="flex justify-between items-center mb-2 text-2xl">
-        <h1 className=" font-extrabold p-2 rounded-md text-2xl md:text-5xl ">
-          Brands Listing
-        </h1>
+        <div className="flex justify-between items-center mb-2 text-2xl">
+          <h1 className="bg-[#FEBB0C] rounded-3xl font-extrabold px-4 py-2 text-2xl md:text-5xl dp mb-2">
+            Brands
+          </h1>
+        </div>
         <button
           onClick={() => {
             setToggle(true);
@@ -141,7 +143,7 @@ function View() {
           <IoMdAddCircleOutline color="" />
         </button>
       </div>
-      <hr className="border border-black mb-4" />
+      {/* <hr className="border border-black mb-4" /> */}
       <div
         className={`fixed top-0 left-0 
         ${toggle ? "z-[9999]" : "-z-[10] hidden"}

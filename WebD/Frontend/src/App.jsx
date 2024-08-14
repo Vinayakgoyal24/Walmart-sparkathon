@@ -25,12 +25,11 @@ import OrderPlaced from "./Pages/OrderPlaced";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import QrScanner from "./Components/Website/QrScanner";
-
 import { useDispatch } from "react-redux";
 import { lsToCart } from "./reducers/CartSlice";
 import { lsLogin } from "./reducers/UserReducer";
 import StoreLayout from "./Pages/Website/StoreLayout";
-
+import AdminLayout from "./Pages/Adminn/AdminLayout";
 function App() {
   const dispatcher = useDispatch();
   const [scannedData, setScannedData] = useState("");
@@ -127,6 +126,10 @@ function App() {
         {
           path: "brand",
           element: <BrandView />,
+        },
+        {
+          path: "layout",
+          element: <AdminLayout />,
         },
       ],
     },

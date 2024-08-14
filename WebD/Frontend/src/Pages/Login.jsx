@@ -73,17 +73,17 @@ function Login() {
   };
   return (
     <div>
-      <section className="bg-[#61677a] h-screen">
+      <section className="bg-[#] h-screen">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
           >
-            <img className="w-48 p-3" src="\images\logo.png" alt="logo" />
+            <img className="w-40 p-3" src="\images\logo.png" alt="logo" />
           </a>
-          <div className="w-full bg-[#272829] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 shad">
+          <div className="w-full bg-[#0071DC] rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 shad">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-400 md:text-2xl">
+              <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl">
                 Log in to your account
               </h1>
               <form className="space-y-4 md:space-y-6" onSubmit={loginHandler}>
@@ -145,7 +145,7 @@ function Login() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-gray-500 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-1/2 ml-24 bg-[#FEBB0C] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Log in
                 </button>
@@ -153,7 +153,7 @@ function Login() {
                   Don’t have an account yet?{" "}
                   <NavLink
                     to="/sign-up"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="font-medium text-black hover:underline dark:text-primary-500"
                   >
                     Sign up
                   </NavLink>

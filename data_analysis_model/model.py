@@ -14,7 +14,7 @@ import seaborn as sns
 from datetime import datetime
 
 # Load the data
-df = pd.read_csv(r"D:/Walmart-sparkathon/product_data.csv")
+df = pd.read_csv(r"C:/Users/vishe/OneDrive/Desktop/Walmart/product_data.csv")
 
 # Shuffle 'Discount' and 'Price' columns
 df['Discount'] = np.random.permutation(df['Discount'])
@@ -111,6 +111,8 @@ df['Category'] = df.apply(lambda row: 'Price' if row['Price_SHAP_abs'] > row['Di
 
 # Get the current date
 current_date = datetime.now().strftime('%Y%m%d')
+custom_dir= r"C:/Users/vishe/OneDrive/Desktop/Walmart/ImageData"
+os.makedirs(custom_dir,exist_ok=True)
 
 # Plot the frequency of categories
 plt.figure(figsize=(8, 6))
@@ -120,7 +122,7 @@ plt.xlabel('Category')
 plt.ylabel('Frequency')
 plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', alpha=0.7)
-frequency_plot_filename = f"{current_date}_1006_frequency.png"
+frequency_plot_filename = f"{custom_dir}{current_date}_1006_frequency.png"
 plt.savefig(frequency_plot_filename)  # Save the plot with the date and product ID
 plt.show()  # Display the plot
 
@@ -132,6 +134,6 @@ print(frequency)
 correlation_matrix = odata.corr()
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
 plt.title('Correlation Matrix Heatmap')
-correlation_plot_filename = f"{current_date}_1006_correlation.png"
+correlation_plot_filename = f"{custom_dir}{current_date}_1006_correlation.png"
 plt.savefig(correlation_plot_filename)  # Save the plot with the date and product ID
 plt.show()  # Display the plot
