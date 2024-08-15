@@ -3,6 +3,7 @@
 ## Overview
 
 This repository contains the code and resources for the **Walmart Mall UX Optimization and Sales Enhancement Portal**, a project aimed at improving the user experience (UX) of Walmart malls and boosting sales through advanced analytics, computer vision, and machine learning techniques.
+**Video Demo**: https://youtu.be/uxjh3YgtJfw
 
 ## Table of Contents
 
