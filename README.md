@@ -33,7 +33,7 @@ The project leverages the following technologies:
 
 ### Backend:
 - **Python**: Core programming language for developing machine learning models and handling backend logic.
-- **Flask**: (Choose one based on your implementation) For web framework to build the backend RESTful APIs.
+- **Node.js**: For web framework to build the backend RESTful APIs.
 
 ### Machine Learning:
 - **XGBoost**: For analyzing factors like pricing, discounts, and product placement duration.
@@ -42,7 +42,7 @@ The project leverages the following technologies:
 
 ### Computer Vision:
 - **OpenCV**: For real-time traffic monitoring and heatmap generation through camera feeds.
-- **YOLO/SSD**: (Optional) For advanced object detection if implemented in the vision system.
+- **YOLO/SSD**: For advanced object detection if implemented in the vision system.
 
 ### Frontend:
 - **Tailwind**
@@ -51,7 +51,7 @@ The project leverages the following technologies:
 - **ScrollTrigger**
 
 ### Data Storage:
-- **MongoDB**: (Specify based on your implementation) For storing product details, customer interaction data, and analysis results.
+- **MongoDB**: For storing product details, customer interaction data, and analysis results.
 
 ## Features:
 - **Heatmap Generation:** Real-time monitoring of customer traffic using strategically placed cameras and advanced computer vision algorithms.
